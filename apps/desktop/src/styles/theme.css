@@ -1,4 +1,5 @@
 @import "@cap/ui-solid/main.css";
+@import "./evo-fonts.css";
 
 @import "@radix-ui/colors/red.css";
 @import "@radix-ui/colors/red-dark.css";
@@ -1266,4 +1267,36 @@
 	::file-selector-button {
 		border-color: var(--color-gray-200, currentColor);
 	}
+}
+
+/* ═══ EVO-VIDEO: бренд поверх базовой темы ═══════════════════════════════════
+ * Интерфейс красится из шкалы --blue-*, поэтому перекрасить его целиком можно
+ * здесь, не трогая 128 мест в компонентах. Значения — фиолет EVO (#8B5CF6),
+ * тот же, что в EVO-X и EVO Mac Cleaner Pro. */
+:root {
+	--blue-50: #f5f1ff;
+	--blue-100: #ddd0ff;
+	--blue-200: #c4aefe;
+	--blue-300: #a78bfa;
+	--blue-400: #8b5cf6;
+	--blue-500: #7c3aed;
+	--blue-transparent-0: rgba(139, 92, 246, 0);
+	--blue-transparent-10: rgba(139, 92, 246, 0.1);
+	--blue-transparent-20: rgba(139, 92, 246, 0.2);
+	--font-brand: "Manrope", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+}
+
+.dark {
+	--blue-50: #241a38;
+	--blue-100: #33245a;
+	--blue-200: #452e7a;
+	--blue-300: #a78bfa;
+	--blue-400: #8b5cf6;
+	--blue-500: #7c4dea;
+	--blue-transparent-10: rgba(139, 92, 246, 0.14);
+	--blue-transparent-20: rgba(139, 92, 246, 0.26);
+}
+
+html, body, button, input, select, textarea {
+	font-family: var(--font-brand);
 }
