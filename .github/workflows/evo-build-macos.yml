@@ -1,0 +1,67 @@
+name: EVO-VIDEO macOS
+
+# Сборка нашей сборки EVO-VIDEO под Apple Silicon. Локально её собрать нельзя:
+# крейт cidre строит свою Objective-C библиотеку через xcodebuild, а он есть
+# только в полном Xcode — на раннере он предустановлен.
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.5.2 --activate
+
+      - name: Rust 1.88 (как в rust-toolchain.toml)
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal
+          rustup default 1.88.0
+          rustup target add aarch64-apple-darwin
+          rustc -vV
+
+      - name: Env для vite
+        run: printf 'VITE_SERVER_URL=https://cap.so\nVITE_ENVIRONMENT=production\n' > .env
+
+      - name: Зависимости только для десктопа
+        run: pnpm install --filter "@cap/desktop..." --filter "{.}"
+
+      # FFmpeg 7 и onnxruntime приезжают бандлом Spacedrive: системный ffmpeg
+      # тут не годится, привязки рассчитаны на седьмую ветку.
+      - name: Нативные зависимости
+        run: pnpm cap-setup
+
+      - name: Сборка
+        working-directory: apps/desktop
+        env:
+          # Профиль апстрима (fat LTO + полный debuginfo) на раннере съедает
+          # и диск, и память на финальной линковке. Оптимизация ради размера
+          # бинарника нам не нужна — нужен работающий .app.
+          CARGO_PROFILE_RELEASE_DEBUG: "0"
+          CARGO_PROFILE_RELEASE_LTO: "thin"
+          CARGO_PROFILE_RELEASE_CODEGEN_UNITS: "16"
+        run: pnpm build:tauri --target aarch64-apple-darwin --config src-tauri/tauri.prod.conf.json --bundles app
+
+      - name: Упаковать .app
+        run: |
+          APP=$(find target/aarch64-apple-darwin/release/bundle/macos -maxdepth 1 -name '*.app' | head -1)
+          test -n "$APP" || { echo "::error::бандл не найден"; exit 1; }
+          echo "собран: $APP"
+          # ditto, а не zip: сохраняет симлинки внутри .framework и права.
+          ditto -c -k --keepParent "$APP" EVO-VIDEO-macos-arm64.zip
+          ls -lh EVO-VIDEO-macos-arm64.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EVO-VIDEO-macos-arm64
+          path: EVO-VIDEO-macos-arm64.zip
+          retention-days: 14
