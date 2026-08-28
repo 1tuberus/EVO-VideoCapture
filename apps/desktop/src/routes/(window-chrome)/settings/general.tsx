@@ -634,7 +634,7 @@ function Inner(props: {
 						/>
 						<ToggleSettingItem
 							label="Delete Instant recordings after upload"
-							description="Cap removes the local file once it has uploaded successfully."
+							description="EVO-VIDEO removes the local file once it has uploaded successfully."
 							value={settings.deleteInstantRecordingsAfterUpload ?? false}
 							onChange={(v) =>
 								handleChange("deleteInstantRecordingsAfterUpload", v)
@@ -875,7 +875,7 @@ function TelemetryCard(props: {
 			<SectionRows>
 				<ToggleSettingItem
 					label="Share anonymous telemetry"
-					description="Cap uses anonymous telemetry to improve reliability and fix bugs. We never collect recording contents, window titles, file paths, or personal information."
+					description="EVO-VIDEO uses anonymous telemetry to improve reliability and fix bugs. We never collect recording contents, window titles, file paths, or personal information."
 					value={props.value}
 					onChange={props.onChange}
 				/>
@@ -1088,7 +1088,7 @@ function InstantQualitySetting(props: {
 			(t) => (
 				<div class="flex gap-3 items-center px-4 py-3 rounded-xl border shadow-lg bg-gray-1 border-gray-4 text-gray-12">
 					<p class="text-sm">
-						Upgrade to Cap Pro to record Instant Mode videos above 720p.
+						Upgrade to EVO-VIDEO Pro to record Instant Mode videos above 720p.
 					</p>
 					<button
 						type="button"
@@ -1113,7 +1113,7 @@ function InstantQualitySetting(props: {
 			description={
 				props.hasCapPro
 					? "Choose the maximum upload resolution for Instant recordings."
-					: "Instant recordings are locked to 720p. Cap Pro unlocks higher resolutions."
+					: "Instant recordings are locked to 720p. EVO-VIDEO Pro unlocks higher resolutions."
 			}
 		>
 			<div class="flex flex-col items-end gap-1.5">
@@ -1155,8 +1155,8 @@ function CapProSection(props: {
 }) {
 	return (
 		<Section
-			title="Cap Pro"
-			description="Settings available with a Cap Pro license."
+			title="EVO-VIDEO Pro"
+			description="Settings available with a EVO-VIDEO Pro license."
 			pro
 		>
 			<SectionRows>

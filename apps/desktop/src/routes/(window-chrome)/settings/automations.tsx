@@ -217,7 +217,7 @@ const TEMPLATES: Template[] = [
 	{
 		id: "ocr-screenshot",
 		name: "Pull the text out of screenshots",
-		description: "Cap reads the text in your screenshot and copies it for you.",
+		description: "EVO-VIDEO reads the text in your screenshot and copies it for you.",
 		icon: IconLucideScanText,
 		build: () =>
 			buildRule({
@@ -287,7 +287,7 @@ const TEMPLATES: Template[] = [
 				actions: [
 					{
 						type: "notify",
-						titleTemplate: "Cap",
+						titleTemplate: "EVO-VIDEO",
 						bodyTemplate: "Your recording is ready to share.",
 					},
 				],

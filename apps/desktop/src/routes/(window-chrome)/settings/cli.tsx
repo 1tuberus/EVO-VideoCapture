@@ -46,7 +46,7 @@ export default function CliSettings() {
 
 		try {
 			mutate(await installCli());
-			toast.success("Cap CLI installed");
+			toast.success("EVO-VIDEO CLI installed");
 		} catch (error) {
 			toast.error(errorMessage(error, "Failed to install CLI"));
 			await refetch();
@@ -60,7 +60,7 @@ export default function CliSettings() {
 
 		try {
 			mutate(await uninstallCli());
-			toast.success("Cap CLI removed");
+			toast.success("EVO-VIDEO CLI removed");
 		} catch (error) {
 			toast.error(errorMessage(error, "Failed to remove CLI"));
 			await refetch();

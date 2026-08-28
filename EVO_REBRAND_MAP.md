@@ -19,9 +19,13 @@
 - `evo-fonts.css` + `styles/fonts/*.woff2`: Manrope локально, без обращений к Google CDN.
 - `NOTICE-EVO.md`: уведомление о модификации по §5a.
 
+## Сделано (фаза 2 продолжение, 2026-08-28)
+- Иконки: новый мастер `apps/desktop/app-icon.png` (1024×1024, тёмный сквиркл + фиолетовое свечение `#8B5CF6` + глиф экран/REC-точка/play, единый язык с EVO-X) → `pnpm tauri icon app-icon.png` перегенерировал все 52 файла в `apps/desktop/src-tauri/icons/*` (macOS icns/ico, iOS, Android, Windows Square-логотипы).
+- Строки «Cap» в UI-текстах (11 файлов, `apps/desktop/src/routes|utils`): заголовки/тосты/лейблы Pro-тарифа, онбординг, teleprompter, автоматизации, CLI-тосты, фильтр диалога открытия записи → «EVO-VIDEO» / «EVO-VIDEO Pro». Тесты (`existing-recording-picker.test.ts`) обновлены синхронно, зелёные.
+- НЕ тронуто осознанно: `extensions: ["cap"]` (формат файла, не бренд), `DEFAULT_TRANSCRIPTION_HINTS` (нейтральный пример-плейсхолдер), `url: "Cap.so"` и домен в `.env` (VITE_SERVER_URL=cap.so) — вместе с self-host, `package.json` имена воркспейсов (риск сломать pnpm resolution, не UI).
+
 ## Осталось
-- Иконки: `apps/desktop/src-tauri/icons/*` + `app-icon.png` → бренд EVO.
-- Строки «Cap» в UI-текстах и `package.json` (имена воркспейсов).
+- `package.json` имена воркспейсов `@cap/*` (отдельная risky-задача, не строки UI).
 - Домены `cap.so` (168 файлов) — **только вместе с self-host**, иначе сломается шаринг.
 - Профиль записи по умолчанию: HEVC + 30 к/с — ради этого всё и затевалось (замер 2026-08-25: даёт сжатие 22–33× при SSIM 0.9995).
 - Гигиена: бинари `core` (54 МБ) и `apps/desktop/core` (66 МБ) закоммичены в upstream — вынести в `.gitignore`.

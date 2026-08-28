@@ -1571,7 +1571,7 @@ function StudioMockup(props: { active: boolean }) {
 								<div class="size-2 rounded-full bg-gray-6" />
 							</div>
 							<span class="text-[10px] text-gray-11 font-medium">
-								Cap Editor
+								EVO-VIDEO Editor
 							</span>
 						</div>
 						<div
@@ -1921,7 +1921,7 @@ function StartupOverlay(props: {
 						/>
 					</div>
 					<h1 class="text-5xl md:text-5xl font-bold mb-4 mt-8 drop-shadow-[0_0_20px_rgba(0,0,0,0.2)]">
-						Welcome to Cap
+						Welcome to EVO-VIDEO
 					</h1>
 					<p class="text-xl md:text-2xl opacity-80 mx-auto drop-shadow-[0_0_20px_rgba(0,0,0,0.2)] whitespace-nowrap">
 						Beautiful screen recordings, owned by you.
